@@ -1,198 +1,55 @@
-# Project 2 - Globitek Input/Output Sanitization
+# Project 3 - Globitek Cookies/Sessions
 
-Time spent: **8** hours spent in total
+Time spent: **1** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
+- [x] Test for vulnerabilities
+  - Run all three provided pen tests
 
-The following advanced user stories are optional:
+- [x] Configure sessions.
+  - [x] Only allow session IDs to come from cookies
+  - [x] Expire after one day
+  - [x] Use cookies which are marked as HttpOnly
+- [ ] Login page.
+  - [ ] An error message for when the username is not found
+  - [ ] An error message for when the username is found but the password does not match
+  - [ ] After a successful login, store the user's ID in the session data (as "user_id").
+  - [ ] After a successful login, store the user's last login time in the session data (as "last_login").
+  - [ ] Regenerate the session ID at the appropriate point to prevent Session Fixation.
+- [ ] Require login to access staff area pages
+  - [ ] Add a login requirement to almost all staff area pages. 
+  - [ ] Determine which two pages do not need to require a login.
+  - [ ] Write code which will only consider a request as being "recent" if the user's last login was less than 1 day ago.
+- [ ] Logout page.
+  - [ ]  Add code to destroy the user's session file after logging out.
+- [ ] Add CSRF protections to the state forms.
+  - [ ] The forms in "public/staff/states/" are new.php and edit.php. Add CSRF tokens to these forms and compare them against the stored version of the token before accepting the form.
+  - [ ] Only process forms data sent by POST requests. (This is already the case unless you change it.)
+  - [ ] Confirm that the referer sent in the requests is from the same domain as the host.
+  - [ ] Create a CSRF token.
+  - [ ] Store the CSRF token in the user's session.
+  - [ ] Add the same CSRF token to the login form as a hidden input.
+  - [ ] When submitted, confirm that session and form tokens match.
+  - [ ] If the tokens do not match, you can should show a simple error message which says "Error: invalid request" and exits.
+  - [ ] Make sure that legitimate use of the states/new.php and states/edit.php pages by a logged-in user still works as expected.
+- [ ] Ensure the application is not vulnerable to XSS attacks. (Tips)
 
-- [x] Import starting database
+- [ ] Ensure the application is not vulnerable to SQL Injection attacks. (Tips)
 
-- [x] Set up starting
+- [ ] Run all tests from Objective 1 again and confirm that your application is no longer vulnerable to any test.
 
----
+The following advanced user stories are **optional**:
 
-- [x] Staff CMS for Users
-  - [x] index.php
-    - [x] Displays a list of all users in the database.
-    - [x] There is a link labeled "Add a User" at the top of the page.
-    - [x] Each user row has two links labeled "Show" and "Edit"
-    - [x] On the page is a link labeled "Back to Menu" which links to the main menu.
-  - [x] show.php
-    - [x] Displays the user's full name, username, and email address.
-    - [x] On the page is a link labeled "Edit" which links to the appropriate page.
-    - [x] On the page is a link labeled "Back to List" which links to the list of users.
-  - [x] new.php
-    - [x] Displays a form for adding a new user.
-    - [x] The form includes text inputs for first name, last name, username, and email address.
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, the form will display again with current values filled in and errors listed.
-    - [x] If validations pass, a new user will be added to the table and redirect to the user's information page.
-    - [x] On the page is a link labeled "Back to List" which links to the list of users.
-  - [x] edit.php
-    - [x] Displays a form for editing an existing user.
-    - [x] The form includes inputs for first name, last name, username, and email address.
-    - [x] The form is pre-populated with the user's current values.
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, the form will display again with current values filled in and errors listed.
-    - [x] If validations pass, it will update the user's data in the table and redirect to the user's information page.
-    - [x] On the page is a link labeled "Cancel" which links to the user's information page.
+- [ ] **Bonus Objective 1**: Objective #4 (requiring login on staff pages) has a major security weakness because it does not follow one of the fundamental security principals. Identify the principal and write a short description of how the code could be modified to be more secure. Include your answer in the README file that accompanies your assignment submission.
 
----
-- [x] Staff CMS for Salespeople
-  - [x] index.php
-    - [x] Displays a list of all salespeople in the database.
-    - [x] There is a link labeled "Add a Salesperson" at the top of the page.
-    - [x] Each user row has two links labeled "Show" and "Edit"
-    - [x] On the page is a link labeled "Back to Menu" which links to the main menu.
-  - [x] show.php
-    - [x] Displays the salesperson's full name, phone, and email address.
-    - [x] On the page is a link labeled "Edit" which links to the appropriate page.
-    - [x] On the page is a link labeled "Back to List" which links to the list of salespeople.
-  - [x] new.php
-    - [x] Displays a form for adding a new salesperson.
-    - [x] The form includes text inputs for first name, last name, phone, and email address.
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, the form will display again with current values filled in and errors listed.
-    - [x] If validations pass, a new salesperson will be added to the table and redirect to the salesperson's information page.
-    - [x] On the page is a link labeled "Back to List" which links to the list of salespeople.
-  - [x] edit.php
-    - [x] Displays a form for editing an existing salesperson.
-    - [x] The form includes inputs for first name, last name, phone, and email address.
-    - [x] The form is pre-populated with the salesperson's current values.
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, the form will display again with current values filled in and errors listed.
-    - [x] If validations pass, it will update the salesperson's data in the table and redirect to the user's information page.
-    - [x] On the page is a link labeled "Cancel" which links to the salesperson's information page.
+- [ ] **Bonus Objective 2**: Add CSRF tokens and protections to all of the forms in the staff directory (new, edit, delete). Make sure the request is the same domain and that the CSRF token is valid.
 
----
-- [x] Staff CMS for State
-  - [x] index.php
-    - [x] Displays a list of all states in the database.
-    - [x] There is a link labeled "Add a State" at the top of the page.
-    - [x] Each user row has two links labeled "Show" and "Edit"
-    - [x] On the page is a link labeled "Back to Menu" which links to the main menu.
-  - [x] show.php
-    - [x] Displays a state's name, abbreviation code, and a list of the names of its territories. The territories list includes the territory name and is sorted by position.
-    - [x] Each territory name is a link to a page to view more information about the territory.
-    - [x] On the page is a link labeled "Edit" which links to the appropriate page.
-    - [x] On the page is a link labeled "Back to List" which links to the list of states.
-    - [x] Below the territory list is a link labeled "Add a Territory" which is a link to the form for adding a new territory.
-  - [x] new.php
-    - [x] Displays a form for adding a new state.
-    - [x] The form includes text inputs for name and code
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, the form will display again with current values filled in and errors listed.
-    - [x] If validations pass, a new state will be added to the table and redirect to the salesperson's information page.
-    - [x] On the page is a link labeled "Back to List" which links to the list of states.
-  - [x] edit.php
-    - [x] Displays a form for editing an existing state.
-    - [x] The form includes inputs for code and name.
-    - [x] The form is pre-populated with the state's current values.
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, the form will display again with current values filled in and errors listed.
-    - [x] If validations pass, it will update the state's data in the table and redirect to the user's information page.
-    - [x] On the page is a link labeled "Cancel" which links to the state's information page.
+- [ ] **Bonus Objective 3**: Add code so that CSRF tokens will only be considered valid for 10 minutes after creation.
 
----
-- [x] Staff CMS for Territories:
-  - [x] index.php
-    - [x] Redirects all requests to the main menu.
-  - [x] show.php
-    - [x] Displays a territory's name, state_id, position.
-    - [x] On the page is a link labeled "Edit" which links to the appropriate page.
-    - [x] On the page is a link labeled "Back to State Details" which links to the state's information page.
-  -[x] new.php
-    - [x] Displays a form for adding a new territory to this state.
-    - [x] The form includes text inputs for name and position.
-    - [x] It does not have a state or state_id input. (The state ID should be present in form action URL and not in a form value.)
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, it will display the form again with errors listed.
-    - [x] If validations pass, it will add a territory to the table and redirect to the territory's information page. Important note: it should automatically assign the new territory to the current state.
-    - [x] On the page is a link labeled "Back to State Details" which links to the state's information page.
-  - [ ] edit.php
-    - [x] Displays a form for editing an existing territory.
-    - [x] The form includes inputs for name and position.
-    - [x] The form is pre-populated with the territory's current values.
-    - [x] It does not have an input for changing the territory's state assignment.
-    - [x] Submitting the form will validate the data. (See validation details below.)
-    - [x] If validations fail, it will display the form again with errors listed.
-    - [x] If validations pass, it will update the territory's data in the table and redirect to the territory's information page.
-    - [x] On the page is a link labeled "Cancel" which links to the territory's information page.
+- [ ] **Bonus Objective 4**: Only consider a session valid if the user-agent string matches the value used when the user last logged in successfully.
 
----
+- [ ] **Advanced Objective**: Create two new pages called "public/set\_secret\_cookie.php" and "public/get\_secret\_cookie.php". The first page will set a cookie with the name "scrt" and the value "I have a secret to tell.". Before storing the cookie, you need to both encrypt it and sign it. You can use any (two-way) encryption algorithm you prefer. When the second page loads, it should read the cookie with the name "scrt", and then—if it is signed correctly—decrypt it. If it is not signed correctly then it should display an error message and skip decryption altogether.
 
-- [x] Validations
-  - [x] Validate that no values are left blank.
-  - [x] Validate that all string values are less than 255 characters long (because that is the maximum size for our SQL columns).
-  - [x] Validate that usernames contain only the whitelisted characters: A-Z, a-z, 0-9, and \_.
-  - [x] Validate that phone numbers contain only the whitelisted characters: 0-9, spaces, and ()-.
-  - [x] Validate that email addresses contain only whitelisted characters: A-Z, a-z, 0-9, and @.\_-.
-  - [x] Add at least 5 other validations of your choosing. Consider what would be useful attributes to validate. Graders will be interested in the utility of the validation as much as the code execution. Add a code comment above each validation that says "My custom validation" (to make it easy to locate during grading).
-    1. Improve email validation to take into account if there is a period, where it is located, and if there are letters around it.
-    2. Validate that phone numbers have between 4 and 13 characters.
-    3. Validate US State Codes can only be two digits.
-    4. Validate State Codes must be alphabtical.
-    5. Validate territory position is not the same as another territory in the same state;
-
----
-- [x] Sanitization
-  - [x] All input and dynamic output should be sanitized.
-  - [x] Be sure to sanitize dynamic data when used for:
-    - URLs
-    - HTML
-    - SQL
-
----
-
-- [x] Penetration Testing
-  - [x] Verify that all form text inputs are not vulnerable to SQLI attacks.
-  - [x] Verify that all URL query strings are not vulnerable to SQLI attacks.
-  - [x] Verify that all form text inputs are not vulnerable to XSS attacks.
-  - [x] Verify that all URL query strings are not vulnerable to XSS attacks.
-  - [x] Make a list of any other bugs or security vulnerabilities you are able to trigger by putting well-crafted data into a form value, in a query string, or in the database data.
-  * Vulnerabilities
-    1. I improperly thought I could use html entities to prevent sql query. I found the
-    mysqli_real_escape_string,  which actually helped cover up these vulnerabilities.
-    2. I also did not properly escape my feature when I was attemting to check a unique username,
-    which allowed for a sql injection vulnerability
-The following **optional** features are implemented:
-- [x] Display the name of the state instead of the `territories.state_id`
-- [x] Validate uniqueness of username both whena user is created and when updated
-
-
-The following **additional** features are implemented:
-
-- [x] Add additional `has\_unique\_username` function to `validation_functions.php`
-- [x] Add validation so that names can only container character, or the symbols period, comma, single quote, or a space
-
-## Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
-
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Notes
-
-Describe any challenges encountered while building the app.
-
-## License
-
-    Copyright [2017] [Jeremy Lehman]
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
