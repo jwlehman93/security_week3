@@ -1,5 +1,6 @@
 <?php
 require_once('../../../private/initialize.php');
+require_login();
 
 if(!isset($_GET['id'])) {
   redirect_to('../index.php');
@@ -13,12 +14,14 @@ $state = array(
   'country_id' => $_GET['id']
 );
 
-if(is_post_request()) {
+if(is_post_request()){
 
   // Confirm that values are present before accessing them.
   if(isset($_POST['name'])) { $state['name'] = $_POST['name']; }
   if(isset($_POST['code'])) { $state['code'] = $_POST['code']; }
-
+  if(!request_is_same_domain() || !csrf_token_is_valid()) {
+    exit("Error: Invalid Request");
+  }
   $result = insert_state($state);
   if($result === true) {
     $new_id = db_insert_id($db);
@@ -44,6 +47,7 @@ if(is_post_request()) {
     Code:<br />
     <input type="text" name="code" value="<?php echo h($state['code']); ?>" /><br />
     <br />
+    <?php echo csrf_token_tag(); ?>
     <input type="submit" name="submit" value="Create"  />
   </form>
 

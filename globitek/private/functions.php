@@ -3,8 +3,7 @@
   function h($string="") {
     return htmlspecialchars($string);
   }
-
-  function u($string="") {
+function u($string="") {
     return urlencode($string);
   }
 
@@ -32,6 +31,7 @@
   function request_is_same_domain() {
     if(!isset($_SERVER['HTTP_REFERER'])) { return false; }
     $referer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+    echo $_SERVER['HTTP_HOST'];
     return ($referer_host === $_SERVER['HTTP_HOST']);
   }
 
