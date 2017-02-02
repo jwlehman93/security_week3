@@ -130,7 +130,7 @@ The following **required** functionality is completed:
 
 - [x] Ensure the application is not vulnerable to SQL Injection attacks. (Tips)
 
-- [ ] Run all tests from Objective 1 again and confirm that your application is no longer vulnerable to any test.
+- [x] Run all tests from Objective 1 again and confirm that your application is no longer vulnerable to any test.
 
 The following advanced user stories are **optional**:
 

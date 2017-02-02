@@ -50,4 +50,25 @@ function display_errors($errors=array()) {
   return $output;
 }
 
+/*
+ * Creates form based on array input, and adds csrf protection
+ * $inputs: (form name => [form label, form value]), type: String => [String, String]
+ * $action: action for form, type: String
+ * $submit: label for submit button, type: String
+ */
+function create_csrf_form($inputs=array(), $action, $submit="Submit"){
+  echo $submit;
+  $form = "";
+  $form .= '<form action="' . $action . '" method="post">';
+  foreach($inputs as $name => $form_info) {
+    list($label, $value) = $form_info;
+    $form .= $label . ':<br />';
+    $form .= '<input type="text" name="' . $name . '" value="' . $value . '"><br />';
+  }
+  $form .= csrf_token_tag();
+  $form .= '<input type="submit" name="submit" value="' . $submit . '" />';
+  $form .= '</form>';
+  return $form;
+}
+
 ?>

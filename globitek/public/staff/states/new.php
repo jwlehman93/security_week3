@@ -39,18 +39,19 @@ if(is_post_request()){
 
   <h1>New State</h1>
 
-  <?php echo display_errors($errors); ?>
-
-  <form action="new.php?id=<?php echo h($state['country_id']); ?>" method="post">
-    Name:<br />
-    <input type="text" name="name" value="<?php echo h($state['name']); ?>" /><br />
-    Code:<br />
-    <input type="text" name="code" value="<?php echo h($state['code']); ?>" /><br />
-    <br />
-    <?php echo csrf_token_tag(); ?>
-    <input type="submit" name="submit" value="Create"  />
-  </form>
-
+<?php 
+echo display_errors($errors); 
+$inputs = array();
+$labels = array(
+  'name' => 'Name',
+  'code' => 'Code'
+);
+foreach($state as $key => $value) {
+  if($key === 'id' || $key === 'country_id') { continue; }
+  $inputs[$key] = [$labels[$key], $value];
+}
+echo create_csrf_form($inputs, 'new.php?id=' . h(u($state['country_id'])), 'Update');
+?>
 </div>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>
