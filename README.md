@@ -52,7 +52,7 @@ The following advanced user stories are optional:
   * [ ]  Identify the security principal not being followed.
   * [ ]  Write a short description of how the code could be modified to be more secure.
 
-* [ ] Bonus Objective 2: Add CSRF protections to all forms in the staff directory
+* [x] Bonus Objective 2: Add CSRF protections to all forms in the staff directory
 
 * [x]  Bonus Objective 3: CSRF tokens only valid for 10 minutes.
 
@@ -64,6 +64,9 @@ The following advanced user stories are optional:
   * [ ]  Encrypt and sign cookie before storing.
   * [ ]  Verify cookie is signed correctly or show error message.
   * [ ]  Decrypt cookie.
+
+I implemented the following additional stories:
+* [x] create a function to template forms that have csrf
 
 ## Video Walkthrough
 

@@ -17,6 +17,9 @@ if(is_post_request()) {
   // Confirm that values are present before accessing them.
   if(isset($_POST['name'])) { $country['name'] = $_POST['name']; }
   if(isset($_POST['code'])) { $country['code'] = $_POST['code']; }
+  if(!request_is_same_domain() || !csrf_token_is_valid()) {
+    exit("Error: Invalid Request");
+  }
 
   $result = update_country($country);
   if($result === true) {
@@ -42,6 +45,7 @@ if(is_post_request()) {
     Code:<br />
     <input type="text" name="code" value="<?php echo h($country['code']); ?>" /><br />
     <br />
+    <?php echo csrf_token_tag(); ?>
     <input type="submit" name="submit" value="Update"  />
   </form>
 

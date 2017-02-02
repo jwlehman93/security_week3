@@ -19,6 +19,9 @@ if(is_post_request()) {
   // Confirm that values are present before accessing them.
   if(isset($_POST['name'])) { $territory['name'] = $_POST['name']; }
   if(isset($_POST['position'])) { $territory['position'] = $_POST['position']; }
+  if(!request_is_same_domain() || !csrf_token_is_valid()) {
+    exit("Error: Invalid Request");
+  }
 
   $result = insert_territory($territory);
   if($result === true) {
@@ -45,6 +48,7 @@ if(is_post_request()) {
     Position:<br />
     <input type="text" name="position" value="<?php echo h($territory['position']); ?>" /><br />
     <br />
+    <?php echo csrf_token_tag(); ?>
     <input type="submit" name="submit" value="Create"  />
   </form>
 
