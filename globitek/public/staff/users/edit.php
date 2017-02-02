@@ -19,10 +19,7 @@ if(is_post_request()) {
   if(isset($_POST['last_name'])) { $user['last_name'] = $_POST['last_name']; }
   if(isset($_POST['username'])) { $user['username'] = $_POST['username']; }
   if(isset($_POST['email'])) { $user['email'] = $_POST['email']; }
-  if(!request_is_same_domain() || !csrf_token_is_valid()) {
-    exit("Error: Invalid Request");
-  }
-
+  validate_request();
 
   $result = update_user($user);
   if($result === true) {

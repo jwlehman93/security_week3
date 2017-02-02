@@ -17,10 +17,7 @@ if(is_post_request()) {
   // Confirm that values are present before accessing them.
   if(isset($_POST['name'])) { $country['name'] = $_POST['name']; }
   if(isset($_POST['code'])) { $country['code'] = $_POST['code']; }
-  if(!request_is_same_domain() || !csrf_token_is_valid()) {
-    exit("Error: Invalid Request");
-  }
-
+  validate_request();
   $result = update_country($country);
   if($result === true) {
     redirect_to('show.php?id=' . $country['id']);

@@ -71,4 +71,10 @@ function create_csrf_form($inputs=array(), $action, $submit="Submit"){
   return $form;
 }
 
+function validate_request() {
+  if(!request_is_same_domain() || !csrf_token_is_valid()) {
+    exit("Error: Request Invalid");
+  }
+}
+
 ?>
