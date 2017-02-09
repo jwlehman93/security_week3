@@ -1,6 +1,6 @@
 # Project 4 - Globitek Authentication and Login Throttling
 
-Time spent: **4** hours spent in total
+Time spent: **7** hours spent in total
 
 ## User Stories
 
@@ -72,14 +72,13 @@ I implemented the following additional stories:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='security_week3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
-
+I had a really hard doing the advanced topic and was never able to finish it. I could either encrypt, or sign my message perfectly well, but I could not get the two to work in tandem.
 ## License
 
     Copyright [yyyy] [name of copyright owner]
